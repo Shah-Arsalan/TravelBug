@@ -1,0 +1,17 @@
+.scroller {
+  background-color: var(--primary-color);
+
+  padding: 1rem;
+  height: 100vh;
+  border-right: 1px solid #fff;
+  border-top: 1rem;
+}
+
+.component-child {
+  color: var(--white);
+}
+
+.component-child:hover {
+  background-color: #34343d;
+  cursor: pointer;
+}

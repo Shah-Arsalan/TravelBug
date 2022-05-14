@@ -1,0 +1,23 @@
+.title-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.4rem;
+}
+
+.creator {
+  padding: 0.4rem;
+}
+
+.vid-title {
+  max-width: 90%;
+  font-family: var(--card-font);
+}
+
+.video-card {
+  border-radius: 1rem;
+}
+
+.image {
+  border-radius: 1rem;
+}

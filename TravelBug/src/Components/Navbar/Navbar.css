@@ -1,0 +1,9 @@
+.nav-container {
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 1.2rem;
+}
+
+.title {
+  margin-left: 1rem;
+}
