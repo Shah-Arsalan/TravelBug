@@ -3,7 +3,7 @@
 
   padding: 1rem;
   height: 100vh;
-  border-right: 1px solid #fff;
+  border-right: 1px solid var(--white);
   border-top: 1rem;
 }
 

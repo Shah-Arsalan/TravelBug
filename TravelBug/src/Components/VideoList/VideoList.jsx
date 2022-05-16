@@ -5,7 +5,6 @@ import "./VideoList.css";
 const VideoList = () => {
   const { state } = useData();
   const { videos } = state;
-  console.log("in videocard", videos);
 
   return (
     <>
