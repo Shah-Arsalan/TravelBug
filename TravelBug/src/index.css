@@ -9,6 +9,9 @@
   --text-color: #000000;
   --login-container-color: #544f4f;
   --login-hover: rgb(45, 41, 41);
+  --link-color: rgb(255, 255, 255);
+  --link-hover: rgb(39, 25, 25);
+  --login-font: "roboto";
   --card-font: "Roboto", "Arial", sans-serif;
 }
 

@@ -21,9 +21,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (token) {
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      navigate("/");
     }
   }, [token]);
 

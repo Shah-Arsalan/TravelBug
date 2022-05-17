@@ -1,5 +1,5 @@
 .login-container {
-  font-family: roboto;
+  font-family: var(--login-font);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,12 +25,12 @@
   background-color: var(--login-hover);
 }
 a {
-  color: rgb(255, 255, 255);
+  color: var(--link-color);
   margin-left: 2rem;
 }
 
 a:hover {
-  color: rgb(39, 25, 25);
+  color: var(--link-hover);
 }
 .forgot-password a {
   margin-left: auto;
