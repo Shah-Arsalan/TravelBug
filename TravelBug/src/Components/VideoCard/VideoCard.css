@@ -21,3 +21,7 @@
 .image {
   border-radius: 1rem;
 }
+
+.video-card:hover {
+  cursor: pointer;
+}

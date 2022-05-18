@@ -1,6 +1,6 @@
 import "./Loginpage.css";
 import { useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext";
+import { useAuth } from "../../Contexts/Authcontext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../../Contexts/Datacontext";

@@ -1,0 +1,33 @@
+.single-video-container {
+  width: 100%;
+}
+
+.single-video-page {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-gap: 2rem;
+  padding: 1rem;
+}
+
+.video-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.vid-icons {
+  display: flex;
+  font-size: 1rem;
+  gap: 1rem;
+}
+
+.icon-name {
+  font-family: var(--card-font);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
