@@ -9,12 +9,12 @@ const VideoCard = ({ vid }) => {
   return (
     <>
       <div className="video-card">
-        <div onClick={() => toSingleVideoPage()} className="image-container">
+        <div onClick={toSingleVideoPage} className="image-container">
           <img src={`https://i.ytimg.com/vi/${_id}/0.jpg`} className="image" />
         </div>
         <div>
           <div className="title-box">
-            <h3 onClick={() => toSingleVideoPage()} className="vid-title">
+            <h3 onClick={toSingleVideoPage} className="vid-title">
               {title}
             </h3>
             <i class="fas fa-ellipsis-v"></i>

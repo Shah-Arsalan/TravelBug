@@ -16,12 +16,9 @@
 
 .video-card {
   border-radius: 1rem;
+  cursor: pointer;
 }
 
 .image {
   border-radius: 1rem;
-}
-
-.video-card:hover {
-  cursor: pointer;
 }

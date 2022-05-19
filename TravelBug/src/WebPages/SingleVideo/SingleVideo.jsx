@@ -9,9 +9,7 @@ const SingleVideo = () => {
   const { vidId } = useParams();
   const video = videos?.find((element) => element._id === vidId) || {};
   const otherVideoList = videos?.filter((element) => element._id != vidId);
-  console.log("vid ", vidId);
-  console.log("videos", videos);
-  console.log("video here ", video);
+
   return (
     <>
       <div className="single-video-page">
