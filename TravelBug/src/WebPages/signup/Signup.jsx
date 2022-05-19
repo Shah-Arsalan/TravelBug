@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useAuth } from "../../Contexts/AuthContext";
+import { useAuth } from "../../Contexts/Authcontext";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 

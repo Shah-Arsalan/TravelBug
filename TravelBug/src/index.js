@@ -5,7 +5,7 @@ import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter } from "react-router-dom";
 import { DataProvider } from "./Contexts/Datacontext";
-import { AuthProvider } from "./Contexts/AuthContext";
+import { AuthProvider } from "./Contexts/Authcontext";
 
 // Call make Server
 makeServer();
