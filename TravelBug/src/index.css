@@ -13,6 +13,7 @@
   --link-hover: rgb(39, 25, 25);
   --login-font: "roboto";
   --card-font: "Roboto", "Arial", sans-serif;
+  --vr-card-bg: rgb(205, 205, 205);
 }
 
 body {

@@ -1,17 +1,30 @@
 import "./App.css";
+import Mockman from "mockman-js";
 import { Navbar } from "./Components/Navbar/Navbar";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { LandingPage, LoginPage, Signup, SingleVideo } from "./WebPages";
+import { LandingPage, Liked, LoginPage, Signup, SingleVideo } from "./WebPages";
+import { useAuth } from "./Contexts/Authcontext";
+import { RequiresAuth } from "./RequiresAuth";
 
 function App() {
+  const { token } = useAuth();
   return (
     <div className="App">
       <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/mockman" element={<Mockman />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/singlevideo/:vidId" element={<SingleVideo />} />
+        <Route
+          path="/liked"
+          element={
+            <RequiresAuth>
+              <Liked />
+            </RequiresAuth>
+          }
+        />
       </Routes>
     </div>
   );

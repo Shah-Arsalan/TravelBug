@@ -2,10 +2,11 @@ import "./Loginpage.css";
 import { useState } from "react";
 import { useAuth } from "../../Contexts/Authcontext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useData } from "../../Contexts/Datacontext";
 
 const LoginPage = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const { loginCall, token, user } = useAuth();
   const { dispatch } = useData();
@@ -16,14 +17,9 @@ const LoginPage = () => {
       email: "adarshbalika@gmail.com",
       password: "adarshbalika",
     });
-    loginCall("adarshbalika@gmail.com", "adarshbalika");
+    loginCall("adarshbalika@gmail.com", "adarshBalika123");
+    console.log("working");
   };
-
-  useEffect(() => {
-    if (token) {
-      navigate("/");
-    }
-  }, [token]);
 
   return (
     <>

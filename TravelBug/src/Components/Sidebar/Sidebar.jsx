@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="scroller">
@@ -17,7 +19,7 @@ const Sidebar = () => {
             <h3 className="component-content">Playlist</h3>
           </div>
 
-          <div className="component-child">
+          <div onClick={() => navigate("/liked")} className="component-child">
             <i class="fas fa-heart"></i>
 
             <h3 className="component-content">Liked</h3>

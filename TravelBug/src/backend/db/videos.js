@@ -25,6 +25,7 @@ export const videos = [
         comment:
           "Loved this video. A brilliantly visual and fun-to-watch video summary of a must-read book!",
         color: "brown",
+        liked: false,
       },
     ],
   },
