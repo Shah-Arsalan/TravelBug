@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { VideoCard } from "../../Components";
+import { Sidebar, VideoCard } from "../../Components";
 import { useAuth } from "../../Contexts/Authcontext";
 import { useData } from "../../Contexts/Datacontext";
 import "./SingleVideo.css";
@@ -60,40 +60,46 @@ const SingleVideo = () => {
 
   return (
     <>
-      <div className="single-video-page">
-        <div className="single-video-container">
-          <iframe
-            width="100%"
-            height="500"
-            src={`https://www.youtube.com/embed/${video?._id}`}
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-          <div className="video-title">
-            <h2>{video.title}</h2>
-            <div className="vid-icons">
-              <div
-                onClick={() => {
-                  likeHandler();
-                }}
-                className={`icon-name ${isLiked() && "dark"}`}
-              >
-                <i class="far fa-thumbs-up"></i>
-                Like
-              </div>
-              <div className="icon-name">
-                <i class="fas fa-clock"></i>
-                Watch Later
+      <div className="outer-container">
+        {" "}
+        <div class="filter-and-category megaContainer sidebar">
+          <Sidebar />
+        </div>
+        <div className="single-video-page">
+          <div className="single-video-container">
+            <iframe
+              width="100%"
+              height="500"
+              src={`https://www.youtube.com/embed/${video?._id}`}
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+            <div className="video-title">
+              <h2>{video.title}</h2>
+              <div className="vid-icons">
+                <div
+                  onClick={() => {
+                    likeHandler();
+                  }}
+                  className={`icon-name ${isLiked() && "dark"}`}
+                >
+                  <i class="far fa-thumbs-up"></i>
+                  Like
+                </div>
+                <div className="icon-name">
+                  <i class="fas fa-clock"></i>
+                  Watch Later
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="other-video-container">
-          {otherVideoList.map((ele) => {
-            return <VideoCard key={ele._id} vid={ele} />;
-          })}
+          <div className="other-video-container">
+            {otherVideoList.map((ele) => {
+              return <VideoCard key={ele._id} vid={ele} />;
+            })}
+          </div>
         </div>
       </div>
     </>
