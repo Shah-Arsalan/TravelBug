@@ -11,12 +11,14 @@ const SingleVideo = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useData();
   const { token } = useAuth();
-  const { liked, videos } = state;
+  const { liked, videos, watchlater } = state;
   const { vidId } = useParams();
   const video = videos?.find((element) => element._id === vidId) || {};
   const otherVideoList = videos?.filter((element) => element._id != vidId);
 
   const isLiked = () => liked.filter((vid) => vid._id === vidId).length > 0;
+  const inWatchLater = () =>
+    watchlater.filter((vid) => vid._id === vidId).length > 0;
 
   const likeHandler = async () => {
     console.log("video here ", video);
@@ -58,6 +60,46 @@ const SingleVideo = () => {
     }
   };
 
+  const watchLaterHandler = async () => {
+    console.log("video here ", video);
+    try {
+      if (!token) {
+        navigate("/login", { state: { from: location } });
+        return;
+      } else {
+        if (inWatchLater()) {
+          const res = await axios.delete(`/api/user/watchlater/${video?._id}`, {
+            headers: {
+              authorization: token,
+            },
+          });
+          console.log("del response ", res);
+          if (res.status === 200 || res.status === 201) {
+            dispatch({
+              type: "WATCHLATER",
+              payload: { watchlater: res.data.watchlater },
+            });
+          }
+        } else {
+          const res = await axios.post(
+            "/api/user/watchlater",
+            { video },
+            { headers: { authorization: token } }
+          );
+
+          if (res.status === 200 || res.status === 201) {
+            dispatch({
+              type: "WATCHLATER",
+              payload: { watchlater: res.data.watchlater },
+            });
+          }
+        }
+      }
+    } catch (error) {
+      console.log("The error is : ", error);
+    }
+  };
+
   return (
     <>
       <div className="outer-container">
@@ -88,7 +130,12 @@ const SingleVideo = () => {
                   <i class="far fa-thumbs-up"></i>
                   Like
                 </div>
-                <div className="icon-name">
+                <div
+                  onClick={() => {
+                    watchLaterHandler();
+                  }}
+                  className={`icon-name ${inWatchLater() && "dark"}`}
+                >
                   <i class="fas fa-clock"></i>
                   Watch Later
                 </div>

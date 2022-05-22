@@ -22,3 +22,28 @@
 .image {
   border-radius: 1rem;
 }
+
+.fa-ellipsis-v {
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
+
+.modal-title {
+  position: relative;
+}
+
+.card-modal-main {
+  border: 1px solid var(--black);
+  position: absolute;
+  top: 30px;
+  right: 30px;
+}
+
+.main-modal-child {
+  padding: 0.4rem 1rem;
+  background-color: var(--white);
+  font-family: var(--card-font);
+}
+.main-modal-child:hover {
+  background-color: var(--vr-card-bg);
+}

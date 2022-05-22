@@ -7,9 +7,11 @@ import { useData } from "../../Contexts/Datacontext";
 const VerticalCard = ({ vid, text }) => {
   const { token } = useAuth();
   const { state, dispatch } = useData();
+  const { videos } = state;
   const navigate = useNavigate();
   const [appear, setAppear] = useState(false);
   const { title, category, img, creator, _id } = vid;
+  const video = videos?.find((element) => element._id === _id) || {};
   const toSingleVideoPage = () => {
     navigate(`/singlevideo/${_id}`);
   };
@@ -20,6 +22,8 @@ const VerticalCard = ({ vid, text }) => {
     modalText = "liked videos";
   } else if (text === "history") {
     modalText = "history";
+  } else if (text === "watchlater") {
+    modalText = "watchlater";
   }
 
   const deleteHandler = async (text) => {
@@ -57,6 +61,42 @@ const VerticalCard = ({ vid, text }) => {
       } catch (error) {
         console.log("The error is : ", error);
       }
+    } else if (text === "watchlater") {
+      try {
+        const res = await axios.delete(`/api/user/watchlater/${_id}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+
+        if (res.status === 200 || res.status === 201) {
+          dispatch({
+            type: "WATCHLATER",
+            payload: { watchlater: res.data.watchlater },
+          });
+        }
+      } catch (error) {
+        console.log("The error is : ", error);
+      }
+    }
+  };
+
+  const addToHistory = async () => {
+    try {
+      const res = await axios.post(
+        "/api/user/history",
+        { video },
+        { headers: { authorization: token } }
+      );
+
+      if (res.status === 200 || res.status === 201) {
+        dispatch({
+          type: "HISTORY",
+          payload: { history: res.data.history },
+        });
+      }
+    } catch (error) {
+      console.log("The error is : ", error);
     }
   };
 
@@ -64,13 +104,25 @@ const VerticalCard = ({ vid, text }) => {
     <>
       <div className="vertical-card-container">
         <div className="vertical-card">
-          <div onClick={toSingleVideoPage} className="img-cont">
+          <div
+            onClick={() => {
+              addToHistory();
+              toSingleVideoPage();
+            }}
+            className="img-cont"
+          >
             <img
               src={`https://i.ytimg.com/vi/${_id}/0.jpg`}
               className="vertical-image"
             />
           </div>
-          <div onClick={toSingleVideoPage} className="details-section">
+          <div
+            onClick={() => {
+              addToHistory();
+              toSingleVideoPage();
+            }}
+            className="details-section"
+          >
             <h2>{title}</h2>
             <p>{creator}</p>
           </div>
