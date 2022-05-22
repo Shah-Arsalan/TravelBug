@@ -1,16 +1,23 @@
 import { useContext, useState } from "react";
 import { createContext } from "react";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  let from = location.state?.from?.pathname || "/";
+
   const localStorageItems = JSON.parse(
     localStorage.getItem("LoginCredentials")
   );
   const [token, setToken] = useState(localStorageItems?.userToken);
   const [user, setUser] = useState(localStorageItems?.activeUser);
   const loginCall = async (email, password) => {
+    console.log(email, password);
     try {
       const response = await axios.post("/api/auth/login", {
         email,
@@ -27,6 +34,7 @@ const AuthProvider = ({ children }) => {
         );
         setUser(response.data.foundUser);
         setToken(response.data.encodedToken);
+        navigate(from, { replace: true });
       }
     } catch (error) {
       console.log(error);
