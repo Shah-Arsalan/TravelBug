@@ -9,11 +9,9 @@ import "./SingleVideo.css";
 const SingleVideo = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { dispatch } = useData();
+  const { state, dispatch } = useData();
   const { token } = useAuth();
-  const { state } = useData();
-  const { liked } = state;
-  const { videos } = state;
+  const { liked, videos } = state;
   const { vidId } = useParams();
   const video = videos?.find((element) => element._id === vidId) || {};
   const otherVideoList = videos?.filter((element) => element._id != vidId);

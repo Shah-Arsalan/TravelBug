@@ -1,6 +1,6 @@
 .vertical-card-container {
   padding: 1rem;
-  background-color: rgb(205, 205, 205);
+  background-color: var(--vr-card-bg);
   display: flex;
   justify-content: space-between;
   cursor: pointer;
@@ -45,5 +45,5 @@
 }
 
 .modal-child:hover {
-  background-color: rgb(172, 164, 164);
+  background-color: var(--mod-bg);
 }

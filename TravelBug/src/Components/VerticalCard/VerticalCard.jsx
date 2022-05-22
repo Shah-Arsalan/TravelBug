@@ -21,7 +21,7 @@ const VerticalCard = ({ vid }) => {
           authorization: token,
         },
       });
-      console.log("del response ", res);
+
       if (res.status === 200 || res.status === 201) {
         dispatch({
           type: "LIKE",

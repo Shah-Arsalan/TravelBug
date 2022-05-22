@@ -14,6 +14,7 @@
   --login-font: "roboto";
   --card-font: "Roboto", "Arial", sans-serif;
   --vr-card-bg: rgb(205, 205, 205);
+  -mod-bg: rgb(172, 164, 164);
 }
 
 body {
