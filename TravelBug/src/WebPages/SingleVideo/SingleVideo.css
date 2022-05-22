@@ -2,6 +2,14 @@
   width: 100%;
 }
 
+.outer-container {
+  display: flex;
+}
+
+.sidebar {
+  flex-shrink: 0;
+}
+
 .single-video-page {
   display: grid;
   grid-template-columns: 4fr 1fr;

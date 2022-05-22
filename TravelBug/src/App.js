@@ -2,7 +2,14 @@ import "./App.css";
 import Mockman from "mockman-js";
 import { Navbar } from "./Components/Navbar/Navbar";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { LandingPage, Liked, LoginPage, Signup, SingleVideo } from "./WebPages";
+import {
+  History,
+  LandingPage,
+  Liked,
+  LoginPage,
+  Signup,
+  SingleVideo,
+} from "./WebPages";
 import { useAuth } from "./Contexts/Authcontext";
 import { RequiresAuth } from "./RequiresAuth";
 
@@ -22,6 +29,14 @@ function App() {
           element={
             <RequiresAuth>
               <Liked />
+            </RequiresAuth>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <RequiresAuth>
+              <History />
             </RequiresAuth>
           }
         />

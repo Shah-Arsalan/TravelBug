@@ -10,7 +10,9 @@ const Sidebar = () => {
           <div className="component-child">
             <i class="fas fa-home"></i>
 
-            <h3 className="component-content">Home</h3>
+            <h3 onClick={() => navigate("/")} className="component-content">
+              Home
+            </h3>
           </div>
 
           <div className="component-child">
@@ -27,7 +29,12 @@ const Sidebar = () => {
           <div className="component-child">
             <i class="fas fa-history"></i>
 
-            <h3 className="component-content">History</h3>
+            <h3
+              onClick={() => navigate("/history")}
+              className="component-content"
+            >
+              History
+            </h3>
           </div>
           <div className="component-child">
             <i class="fas fa-clock"></i>

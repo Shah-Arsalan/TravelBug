@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../Contexts/Authcontext";
 import { useData } from "../../Contexts/Datacontext";
-const VerticalCard = ({ vid }) => {
+const VerticalCard = ({ vid, text }) => {
   const { token } = useAuth();
   const { state, dispatch } = useData();
   const navigate = useNavigate();
@@ -14,25 +14,52 @@ const VerticalCard = ({ vid }) => {
     navigate(`/singlevideo/${_id}`);
   };
 
-  const deleteLikeHandler = async () => {
-    try {
-      const res = await axios.delete(`/api/user/likes/${_id}`, {
-        headers: {
-          authorization: token,
-        },
-      });
+  let modalText = "";
 
-      if (res.status === 200 || res.status === 201) {
-        dispatch({
-          type: "LIKE",
-          payload: { likes: res.data.likes },
+  if (text === "liked") {
+    modalText = "liked videos";
+  } else if (text === "history") {
+    modalText = "history";
+  }
+
+  const deleteHandler = async (text) => {
+    if (text === "liked") {
+      try {
+        const res = await axios.delete(`/api/user/likes/${_id}`, {
+          headers: {
+            authorization: token,
+          },
         });
+
+        if (res.status === 200 || res.status === 201) {
+          dispatch({
+            type: "LIKE",
+            payload: { likes: res.data.likes },
+          });
+        }
+      } catch (error) {
+        console.log("The error is : ", error);
       }
-    } catch (error) {
-      console.log("The error is : ", error);
+    } else if (text === "history") {
+      try {
+        const res = await axios.delete(`/api/user/history/${_id}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+
+        if (res.status === 200 || res.status === 201) {
+          dispatch({
+            type: "HISTORY",
+            payload: { history: res.data.history },
+          });
+        }
+      } catch (error) {
+        console.log("The error is : ", error);
+      }
     }
   };
-  console.log(appear);
+
   return (
     <>
       <div className="vertical-card-container">
@@ -51,8 +78,8 @@ const VerticalCard = ({ vid }) => {
         <div className="modal-container">
           {appear && (
             <div className="card-modal">
-              <p onClick={deleteLikeHandler} className="modal-child">
-                Remove from liked videos
+              <p onClick={() => deleteHandler(text)} className="modal-child">
+                Remove from {modalText}
               </p>
             </div>
           )}

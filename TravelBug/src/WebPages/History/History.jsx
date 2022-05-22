@@ -1,10 +1,10 @@
-import { Sidebar, VerticalCard, VideoCard } from "../../Components";
+import { Sidebar, VerticalCard } from "../../Components";
 import { useData } from "../../Contexts/Datacontext";
-import "./Liked.css";
+import "./History.css";
 
-const Liked = () => {
+const History = () => {
   const { state } = useData();
-  const { liked } = state;
+  const { history } = state;
   return (
     <>
       <div className="product-listing-body">
@@ -12,8 +12,8 @@ const Liked = () => {
           <Sidebar />
         </div>
         <div className="liked-vid-container">
-          {liked.map((ele) => {
-            return <VerticalCard key={ele._id} vid={ele} text={"liked"} />;
+          {history.map((ele) => {
+            return <VerticalCard key={ele._id} vid={ele} text={"history"} />;
           })}
         </div>
       </div>
@@ -21,4 +21,4 @@ const Liked = () => {
   );
 };
 
-export { Liked };
+export { History };

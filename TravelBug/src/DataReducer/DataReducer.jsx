@@ -1,6 +1,7 @@
 const initialState = {
   videos: [],
   liked: [],
+  history: [],
 };
 
 const DataReducer = (state, action) => {
@@ -14,10 +15,17 @@ const DataReducer = (state, action) => {
     }
 
     case "LIKE": {
-      console.log("checking", action.payload.likes);
       return {
         ...state,
         liked: [...action.payload.likes],
+      };
+    }
+
+    case "HISTORY": {
+      console.log("checking history", action.payload.history);
+      return {
+        ...state,
+        history: [...action.payload.history],
       };
     }
   }
