@@ -9,6 +9,7 @@ import {
   LoginPage,
   Signup,
   SingleVideo,
+  WatchLater,
 } from "./WebPages";
 import { useAuth } from "./Contexts/Authcontext";
 import { RequiresAuth } from "./RequiresAuth";
@@ -37,6 +38,15 @@ function App() {
           element={
             <RequiresAuth>
               <History />
+            </RequiresAuth>
+          }
+        />
+
+        <Route
+          path="/watchlater"
+          element={
+            <RequiresAuth>
+              <WatchLater />
             </RequiresAuth>
           }
         />

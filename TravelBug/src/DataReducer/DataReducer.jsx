@@ -2,6 +2,7 @@ const initialState = {
   videos: [],
   liked: [],
   history: [],
+  watchlater: [],
 };
 
 const DataReducer = (state, action) => {
@@ -26,6 +27,14 @@ const DataReducer = (state, action) => {
       return {
         ...state,
         history: [...action.payload.history],
+      };
+    }
+
+    case "WATCHLATER": {
+      console.log("checking history", action.payload.history);
+      return {
+        ...state,
+        watchlater: [...action.payload.watchlater],
       };
     }
   }

@@ -36,7 +36,10 @@ const Sidebar = () => {
               History
             </h3>
           </div>
-          <div className="component-child">
+          <div
+            onClick={() => navigate("/watchlater")}
+            className="component-child"
+          >
             <i class="fas fa-clock"></i>
 
             <h3 className="component-content">Watch Later</h3>
