@@ -21,7 +21,6 @@ const SingleVideo = () => {
     watchlater.filter((vid) => vid._id === vidId).length > 0;
 
   const likeHandler = async () => {
-    console.log("video here ", video);
     try {
       if (!token) {
         navigate("/login", { state: { from: location } });
@@ -33,7 +32,7 @@ const SingleVideo = () => {
               authorization: token,
             },
           });
-          console.log("del response ", res);
+
           if (res.status === 200 || res.status === 201) {
             dispatch({
               type: "LIKE",
@@ -61,7 +60,6 @@ const SingleVideo = () => {
   };
 
   const watchLaterHandler = async () => {
-    console.log("video here ", video);
     try {
       if (!token) {
         navigate("/login", { state: { from: location } });
@@ -73,7 +71,7 @@ const SingleVideo = () => {
               authorization: token,
             },
           });
-          console.log("del response ", res);
+
           if (res.status === 200 || res.status === 201) {
             dispatch({
               type: "WATCHLATER",

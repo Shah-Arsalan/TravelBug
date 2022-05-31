@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../../Contexts/Authcontext";
 import { useData } from "../../Contexts/Datacontext";
-const VerticalCard = ({ vid, text }) => {
+const VerticalCard = ({ vid, text, pId }) => {
   const { token } = useAuth();
-  const { state, dispatch } = useData();
+  const { state, dispatch, activeVideo } = useData();
   const { videos } = state;
   const navigate = useNavigate();
   const [appear, setAppear] = useState(false);
@@ -24,6 +24,8 @@ const VerticalCard = ({ vid, text }) => {
     modalText = "history";
   } else if (text === "watchlater") {
     modalText = "watchlater";
+  } else if ((text = "singleplaylist")) {
+    modalText = "playlist";
   }
 
   const deleteHandler = async (text) => {
@@ -73,6 +75,26 @@ const VerticalCard = ({ vid, text }) => {
           dispatch({
             type: "WATCHLATER",
             payload: { watchlater: res.data.watchlater },
+          });
+        }
+      } catch (error) {
+        console.log("The error is : ", error);
+      }
+    } else if (text === "singleplaylist") {
+      try {
+        console.log("suiiiiii");
+        console.log("play id", pId);
+        console.log("vid idddd", _id);
+        const res = await axios.delete(`/api/user/playlists/${pId}/${_id}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+
+        if (res.status === 200 || res.status === 201) {
+          dispatch({
+            type: "PLAYLIST",
+            payload: { playlist: res.data.playlist },
           });
         }
       } catch (error) {

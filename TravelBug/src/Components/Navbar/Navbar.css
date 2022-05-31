@@ -2,8 +2,38 @@
   background-color: var(--primary-color);
   color: var(--white);
   padding: 1.2rem;
+  position: relative;
 }
 
 .title {
   margin-left: 1rem;
+}
+
+.user {
+  font-size: 1.5rem;
+  cursor: pointer;
+  border: 1px solid var(--white);
+  padding: 0.5rem;
+  border-radius: 100%;
+  margin-right: 1rem;
+}
+
+.user:hover {
+  color: var(--vr-card-bg);
+  box-shadow: var(--shadow-box);
+}
+
+.user-modal {
+  color: var(--primary-color);
+}
+
+.user-modal:hover {
+  background-color: var(--vr-card-bg);
+  cursor: pointer;
+}
+
+.user-modal-container {
+  position: absolute;
+  margin-top: 1rem;
+  margin-right: 2.8rem;
 }

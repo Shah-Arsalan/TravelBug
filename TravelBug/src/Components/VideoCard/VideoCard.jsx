@@ -1,22 +1,37 @@
 import "./VideoCard.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/Authcontext";
-import { useContext } from "react/cjs/react.production.min";
 import { useData } from "../../Contexts/Datacontext";
 import { useState } from "react";
-const VideoCard = ({ vid }) => {
+import { PlaylistModal } from "../PlaylistModal/PlaylistModal";
+
+const VideoCard = ({ vid, playlistId }) => {
+  const location = useLocation;
   const { token } = useAuth();
-  const { state, dispatch } = useData();
+  const { state, dispatch, setModal, modal, activeVideo, setActiveVideo } =
+    useData();
+
   const { videos } = state;
   const navigate = useNavigate();
 
   const { title, category, img, creator, _id } = vid;
   const video = videos?.find((element) => element._id === _id) || {};
   const [appear, setAppear] = useState(false);
+
   const toSingleVideoPage = () => {
     navigate(`/singlevideo/${_id}`);
   };
+
+  let currentPlaylist = "";
+  if (playlistId) {
+    console.log("this is playlist id", playlistId);
+
+    currentPlaylist = state.playlist.filter((ele) => ele._id === playlistId);
+
+    console.log("this is current playlist", currentPlaylist);
+    console.log("current id", currentPlaylist[0].videos[0]._id);
+  }
 
   const addToHistory = async () => {
     try {
@@ -62,25 +77,71 @@ const VideoCard = ({ vid }) => {
     }
   };
 
+  const showModal = () => {
+    if (!token) {
+      navigate("/login", { state: { from: location } });
+      return;
+    } else {
+      setAppear(false);
+      setModal(true);
+    }
+  };
+
+  const toSinglePlaylist = (pId) => {
+    navigate(`/singleplaylist/${pId}`);
+  };
+
+  const deletePlaylist = async () => {
+    console.log("pididid", playlistId);
+    try {
+      const res = await axios.delete(`/api/user/playlists/${playlistId}`, {
+        headers: { authorization: token },
+      });
+      console.log("playlist array", res);
+      if (res.status === 200 || res.status === 201) {
+        dispatch({
+          type: "PLAYLIST",
+          payload: { playlists: res.data.playlists },
+        });
+      }
+    } catch (error) {
+      console.log("The error is : ", error);
+    }
+  };
   return (
     <>
       <div className="video-card">
         <div
           onClick={() => {
-            addToHistory();
-            toSingleVideoPage();
+            if (playlistId) {
+              toSinglePlaylist(playlistId);
+            } else {
+              addToHistory();
+              toSingleVideoPage();
+            }
           }}
           className="image-container"
         >
-          <img src={`https://i.ytimg.com/vi/${_id}/0.jpg`} className="image" />
+          <img
+            src={
+              playlistId
+                ? `https://i.ytimg.com/vi/${currentPlaylist[0].videos[0]._id}/0.jpg`
+                : `https://i.ytimg.com/vi/${_id}/0.jpg`
+            }
+            className="image"
+          />
         </div>
 
         <div className="modal-title">
           <div className="title-box">
             <h3
               onClick={() => {
-                addToHistory();
-                toSingleVideoPage();
+                if (playlistId) {
+                  toSinglePlaylist();
+                } else {
+                  addToHistory();
+                  toSingleVideoPage();
+                }
               }}
               className="vid-title"
             >
@@ -88,7 +149,10 @@ const VideoCard = ({ vid }) => {
             </h3>
 
             <i
-              onClick={() => setAppear((prev) => !prev)}
+              onClick={() => {
+                setAppear((prev) => !prev);
+                setActiveVideo(_id);
+              }}
               class="fas fa-ellipsis-v"
             ></i>
           </div>
@@ -96,16 +160,32 @@ const VideoCard = ({ vid }) => {
             <p>{creator}</p>
           </div>
 
-          <div className="card-modal-main">
-            {appear && (
-              <div onClick={() => setAppear(false)}>
-                <p className="main-modal-child border-1px">Add to playlist</p>
-                <p onClick={watchLater} className="main-modal-child">
-                  Add to watchlater
-                </p>
-              </div>
-            )}
-          </div>
+          {appear && (
+            <div className="card-modal-main">
+              {playlistId ? (
+                <div onClick={() => setAppear(false)}>
+                  <p
+                    onClick={deletePlaylist}
+                    className="main-modal-child border-1px"
+                  >
+                    Delete playlist
+                  </p>
+                </div>
+              ) : (
+                <div onClick={() => setAppear(false)}>
+                  <p
+                    onClick={showModal}
+                    className="main-modal-child border-1px"
+                  >
+                    Add to playlist
+                  </p>
+                  <p onClick={watchLater} className="main-modal-child">
+                    Add to watchlater
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </>

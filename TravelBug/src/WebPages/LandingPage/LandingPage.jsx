@@ -1,7 +1,9 @@
-import { Sidebar, VideoList } from "../../Components";
+import { PlaylistModal, Sidebar, VideoList } from "../../Components";
+import { useData } from "../../Contexts/Datacontext";
 import "./LandingPage.css";
 
 const LandingPage = () => {
+  const { modal, setModal } = useData();
   return (
     <>
       <div className="product-listing-body">
@@ -12,6 +14,7 @@ const LandingPage = () => {
           <VideoList />
         </div>
       </div>
+      {modal && <PlaylistModal />}
     </>
   );
 };
