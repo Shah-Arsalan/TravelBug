@@ -1,10 +1,18 @@
-import { useContext, createContext, useReducer, useEffect } from "react";
+import {
+  useContext,
+  createContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
 import { DataReducer, initialState } from "../DataReducer/DataReducer";
 import axios from "axios";
 
 const Datacontext = createContext();
 const DataProvider = ({ children }) => {
   const [state, dispatch] = useReducer(DataReducer, initialState);
+  const [modal, setModal] = useState(false);
+  const [activeVideo, setActiveVideo] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -23,7 +31,9 @@ const DataProvider = ({ children }) => {
     })();
   }, []);
   return (
-    <Datacontext.Provider value={{ state, dispatch }}>
+    <Datacontext.Provider
+      value={{ state, dispatch, modal, setModal, activeVideo, setActiveVideo }}
+    >
       {children}
     </Datacontext.Provider>
   );

@@ -1,0 +1,57 @@
+.plist-m-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  padding-top: 10rem;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.plist-m {
+  border: 1px solid var(--black);
+  width: max-content;
+  padding: 0.5rem;
+  margin: auto;
+  margin-top: 5rem;
+  border-radius: 0.5rem;
+  font-family: var(--card-font);
+  background-color: var(--white);
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input {
+  padding: 0.2rem;
+}
+
+.playlists {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0.5rem;
+}
+
+.playlist-child {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.heading-txt {
+  padding-bottom: 0.5rem;
+}
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fa-times {
+  cursor: pointer;
+}
+.fa-times:hover {
+  color: var(--login-container-color);
+}

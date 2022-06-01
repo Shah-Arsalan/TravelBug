@@ -7,7 +7,9 @@ import {
   LandingPage,
   Liked,
   LoginPage,
+  Playlist,
   Signup,
+  SinglePlaylist,
   SingleVideo,
   WatchLater,
 } from "./WebPages";
@@ -25,6 +27,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/singlevideo/:vidId" element={<SingleVideo />} />
+        <Route
+          path="/singleplaylist/:playlistid"
+          element={<SinglePlaylist />}
+        />
         <Route
           path="/liked"
           element={
@@ -47,6 +53,15 @@ function App() {
           element={
             <RequiresAuth>
               <WatchLater />
+            </RequiresAuth>
+          }
+        />
+
+        <Route
+          path="/playlist"
+          element={
+            <RequiresAuth>
+              <Playlist />
             </RequiresAuth>
           }
         />
