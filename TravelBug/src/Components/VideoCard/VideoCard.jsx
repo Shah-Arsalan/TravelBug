@@ -29,9 +29,9 @@ const VideoCard = ({ vid, playlistId }) => {
 
     currentPlaylist = state.playlist.filter((ele) => ele._id === playlistId);
 
-    console.log("this is current playlist", currentPlaylist);
-    console.log("current id", currentPlaylist[0].videos[0]._id);
-    console.log("lennn", currentPlaylist[0].videos.length);
+    // console.log("this is current playlist", currentPlaylist);
+    // console.log("current id", currentPlaylist[0].videos[0]._id);
+    // console.log("lennn", currentPlaylist[0].videos.length);
   }
 
   const addToHistory = async () => {
