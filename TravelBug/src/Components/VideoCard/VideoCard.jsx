@@ -126,7 +126,7 @@ const VideoCard = ({ vid, playlistId }) => {
           <img
             src={
               playlistId
-                ? `https://i.ytimg.com/vi/${currentPlaylist[0].videos[0]._id}/0.jpg`
+                ? `https://i.ytimg.com/vi/${currentPlaylist[0].videos[0]?._id}/0.jpg`
                 : `https://i.ytimg.com/vi/${_id}/0.jpg`
             }
             className="image"
