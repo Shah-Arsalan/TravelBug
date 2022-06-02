@@ -1,15 +1,22 @@
 import { useData } from "../../Contexts/Datacontext";
-import { useParams } from "react-router-dom";
+import { useAuth } from "../../Contexts/Authcontext";
+import { useNavigate, useParams } from "react-router-dom";
 import "./SinglePlaylist.css";
 import { Sidebar, VerticalCard } from "../../Components";
+import { useEffect } from "react";
+
 const SinglePlaylist = () => {
+  const navigate = useNavigate();
   const { state } = useData();
   const { playlist } = state;
+
   const { playlistid } = useParams();
   const activePlaylist =
     playlist?.find((element) => element._id === playlistid) || {};
   console.log("inside single playlist page", playlistid);
   console.log("the active playlist is", activePlaylist);
+  console.log("len is ", activePlaylist.videos.length);
+
   return (
     <>
       <div className="product-listing-body">

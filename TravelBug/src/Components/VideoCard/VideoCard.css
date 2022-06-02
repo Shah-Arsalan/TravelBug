@@ -47,3 +47,21 @@
 .main-modal-child:hover {
   background-color: var(--vr-card-bg);
 }
+
+.play-card {
+  position: relative;
+}
+
+.video-number {
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  right: 0;
+  border-radius: 1rem;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

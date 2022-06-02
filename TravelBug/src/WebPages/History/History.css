@@ -1,0 +1,6 @@
+.empty-page {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--vr-card-bg);
+}

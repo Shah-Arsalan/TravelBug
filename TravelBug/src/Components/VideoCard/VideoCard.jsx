@@ -31,6 +31,7 @@ const VideoCard = ({ vid, playlistId }) => {
 
     console.log("this is current playlist", currentPlaylist);
     console.log("current id", currentPlaylist[0].videos[0]._id);
+    console.log("lennn", currentPlaylist[0].videos.length);
   }
 
   const addToHistory = async () => {
@@ -120,7 +121,7 @@ const VideoCard = ({ vid, playlistId }) => {
               toSingleVideoPage();
             }
           }}
-          className="image-container"
+          className={`image-container ${playlistId ? "play-card" : ""} `}
         >
           <img
             src={
@@ -130,6 +131,11 @@ const VideoCard = ({ vid, playlistId }) => {
             }
             className="image"
           />
+          {playlistId && (
+            <div className="video-number">
+              {currentPlaylist[0].videos.length} videos
+            </div>
+          )}
         </div>
 
         <div className="modal-title">
