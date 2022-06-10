@@ -18,7 +18,6 @@ const LoginPage = () => {
       password: "adarshbalika",
     });
     loginCall("adarshbalika@gmail.com", "adarshBalika123");
-    console.log("working");
   };
 
   return (

@@ -18,7 +18,6 @@ const PlaylistModal = () => {
         { playlist: { title: playlistTitle, description: "bar bar bar" } },
         { headers: { authorization: token } }
       );
-      console.log("playlist array", res);
       if (res.status === 200 || res.status === 201) {
         dispatch({
           type: "PLAYLIST",
@@ -34,15 +33,12 @@ const PlaylistModal = () => {
     const currentPlaylist = state.playlist.filter((ele) => ele != elem);
 
     if (e.target.checked) {
-      console.log("checked");
-
       try {
         const res = await axios.post(
           `/api/user/playlists/${elem._id}`,
           { video },
           { headers: { authorization: token } }
         );
-        console.log("add response", res.data.playlist);
         if (res.status === 200 || res.status === 201) {
           dispatch({
             type: "PLAYLIST",

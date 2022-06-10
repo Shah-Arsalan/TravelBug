@@ -13,9 +13,6 @@ const SinglePlaylist = () => {
   const { playlistid } = useParams();
   const activePlaylist =
     playlist?.find((element) => element._id === playlistid) || {};
-  console.log("inside single playlist page", playlistid);
-  console.log("the active playlist is", activePlaylist);
-  console.log("len is ", activePlaylist.videos.length);
 
   return (
     <>

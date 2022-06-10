@@ -17,7 +17,6 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorageItems?.userToken);
   const [user, setUser] = useState(localStorageItems?.activeUser);
   const loginCall = async (email, password) => {
-    console.log(email, password);
     try {
       const response = await axios.post("/api/auth/login", {
         email,

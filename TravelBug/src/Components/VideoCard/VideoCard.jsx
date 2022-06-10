@@ -25,13 +25,7 @@ const VideoCard = ({ vid, playlistId }) => {
 
   let currentPlaylist = "";
   if (playlistId) {
-    console.log("this is playlist id", playlistId);
-
     currentPlaylist = state.playlist.filter((ele) => ele._id === playlistId);
-
-    // console.log("this is current playlist", currentPlaylist);
-    // console.log("current id", currentPlaylist[0].videos[0]._id);
-    // console.log("lennn", currentPlaylist[0].videos.length);
   }
 
   const addToHistory = async () => {
@@ -54,7 +48,6 @@ const VideoCard = ({ vid, playlistId }) => {
   };
 
   const watchLater = async () => {
-    console.log("video here ", video);
     try {
       if (!token) {
         navigate("/login", { state: { from: location } });

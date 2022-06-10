@@ -82,9 +82,6 @@ const VerticalCard = ({ vid, text, pId }) => {
       }
     } else if (text === "singleplaylist") {
       try {
-        console.log("suiiiiii");
-        console.log("play id", pId);
-        console.log("vid idddd", _id);
         const res = await axios.delete(`/api/user/playlists/${pId}/${_id}`, {
           headers: {
             authorization: token,
