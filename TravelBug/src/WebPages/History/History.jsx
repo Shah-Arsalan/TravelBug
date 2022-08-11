@@ -2,11 +2,19 @@ import { Sidebar, VerticalCard } from "../../Components";
 import { useData } from "../../Contexts/Datacontext";
 import "./History.css";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getHistoryHandler } from "../../redux/videoSlice";
 
 const History = () => {
-  const { state } = useData();
-  const { history } = state;
-  const historyLen = history.length;
+  const dispatch = useDispatch()
+  const {token}= useSelector(state => state.auth)
+  const videos = useSelector(state => state.video)
+  const history = videos?.history
+  const historyLen = history?.length;
+
+useEffect(() => {
+dispatch(getHistoryHandler(token))
+},[])
 
   return (
     <>

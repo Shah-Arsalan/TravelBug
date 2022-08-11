@@ -2,23 +2,25 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Sidebar, VideoCard } from "../../Components";
-import { useAuth } from "../../Contexts/Authcontext";
-import { useData } from "../../Contexts/Datacontext";
+import { useDispatch, useSelector } from "react-redux";
+import { addLikeHandler , addWatchLaterHandler, deleteLikeHandler, deleteWatchLaterHandler} from "../../redux/videoSlice";
 import "./SingleVideo.css";
 
 const SingleVideo = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { state, dispatch } = useData();
-  const { token } = useAuth();
-  const { liked, videos, watchlater } = state;
+  const videoData = useSelector(state => state.video)
+  const {videos , liked , watchlater} = videoData
+  const auth = useSelector(state => state.auth)
+  const token = auth.token
   const { vidId } = useParams();
   const video = videos?.find((element) => element._id === vidId) || {};
   const otherVideoList = videos?.filter((element) => element._id != vidId);
+  const dataDispatch = useDispatch()
 
-  const isLiked = () => liked.filter((vid) => vid._id === vidId).length > 0;
+  const isLiked = () => liked?.filter((vid) => vid._id === vidId).length > 0;
   const inWatchLater = () =>
-    watchlater.filter((vid) => vid._id === vidId).length > 0;
+    watchlater?.filter((vid) => vid._id === vidId).length > 0;
 
   const likeHandler = async () => {
     try {
@@ -27,31 +29,34 @@ const SingleVideo = () => {
         return;
       } else {
         if (isLiked()) {
-          const res = await axios.delete(`/api/user/likes/${video?._id}`, {
-            headers: {
-              authorization: token,
-            },
-          });
+          // const res = await axios.delete(`/api/user/likes/${video?._id}`, {
+          //   headers: {
+          //     authorization: token,
+          //   },
+          // });
 
-          if (res.status === 200 || res.status === 201) {
-            dispatch({
-              type: "LIKE",
-              payload: { likes: res.data.likes },
-            });
-          }
+          // if (res.status === 200 || res.status === 201) {
+          //   dispatch({
+          //     type: "LIKE",
+          //     payload: { likes: res.data.likes },
+          //   });
+          // }
+          const _id = video?._id
+          dataDispatch(deleteLikeHandler({token , _id}))
         } else {
-          const res = await axios.post(
-            "/api/user/likes",
-            { video },
-            { headers: { authorization: token } }
-          );
+          // const res = await axios.post(
+          //   "/api/user/likes",
+          //   { video },
+          //   { headers: { authorization: token } }
+          // );
 
-          if (res.status === 200 || res.status === 201) {
-            dispatch({
-              type: "LIKE",
-              payload: { likes: res.data.likes },
-            });
-          }
+          // if (res.status === 200 || res.status === 201) {
+          //   dispatch({
+          //     type: "LIKE",
+          //     payload: { likes: res.data.likes },
+          //   });
+          // }
+dataDispatch(addLikeHandler({video , token}))
         }
       }
     } catch (error) {
@@ -66,31 +71,34 @@ const SingleVideo = () => {
         return;
       } else {
         if (inWatchLater()) {
-          const res = await axios.delete(`/api/user/watchlater/${video?._id}`, {
-            headers: {
-              authorization: token,
-            },
-          });
+          // const res = await axios.delete(`/api/user/watchlater/${video?._id}`, {
+          //   headers: {
+          //     authorization: token,
+          //   },
+          // });
 
-          if (res.status === 200 || res.status === 201) {
-            dispatch({
-              type: "WATCHLATER",
-              payload: { watchlater: res.data.watchlater },
-            });
-          }
+          // if (res.status === 200 || res.status === 201) {
+          //   dispatch({
+          //     type: "WATCHLATER",
+          //     payload: { watchlater: res.data.watchlater },
+          //   });
+          // }
+          const _id = video?._id
+          dataDispatch(deleteWatchLaterHandler({token , _id}))
         } else {
-          const res = await axios.post(
-            "/api/user/watchlater",
-            { video },
-            { headers: { authorization: token } }
-          );
-
-          if (res.status === 200 || res.status === 201) {
-            dispatch({
-              type: "WATCHLATER",
-              payload: { watchlater: res.data.watchlater },
-            });
-          }
+//           const res = await axios.post(
+//             "/api/user/watchlater",
+//             { video },
+//             { headers: { authorization: token } }
+//           );
+// console.log("The watch later resp" ,  res.data)
+//           if (res.status === 200 || res.status === 201) {
+//             dispatch({
+//               type: "WATCHLATER",
+//               payload: { watchlater: res.data.watchlater },
+//             });
+//           }
+dataDispatch(addWatchLaterHandler({video , token}))
         }
       }
     } catch (error) {

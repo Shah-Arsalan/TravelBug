@@ -1,11 +1,20 @@
 import { Sidebar, VideoCard } from "../../Components";
 import { useData } from "../../Contexts/Datacontext";
 import "./Playlist.css";
-
+import { useSelector , useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getPlaylistHandler } from "../../redux/videoSlice";
 const Playlist = () => {
-  const { state } = useData();
-  const { playlist } = state;
+  const dispatch = useDispatch()
+  const {token} = useSelector(state => state.auth)
+  const videos = useSelector(state => state.video)
+  console.log(videos, "inside playlist")
+  const playlist = videos.playlist
   const playlistLen = playlist.length;
+
+  useEffect(() => {
+dispatch(getPlaylistHandler(token))
+  },[])
   return (
     <>
       {playlistLen ? (

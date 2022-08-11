@@ -1,18 +1,24 @@
-import { useData } from "../../Contexts/Datacontext";
-import { useAuth } from "../../Contexts/Authcontext";
+
 import { useNavigate, useParams } from "react-router-dom";
 import "./SinglePlaylist.css";
 import { Sidebar, VerticalCard } from "../../Components";
 import { useEffect } from "react";
+import { useSelector  , useDispatch} from "react-redux";
+import { getCurrentPlaylistHandler } from "../../redux/videoSlice";
 
 const SinglePlaylist = () => {
   const navigate = useNavigate();
-  const { state } = useData();
-  const { playlist } = state;
-
+  const dispatch = useDispatch()
+  const {token} = useSelector(state => state.auth)
+const videos = useSelector(state => state.video)
+const {playlist} = videos
   const { playlistid } = useParams();
   const activePlaylist =
     playlist?.find((element) => element._id === playlistid) || {};
+
+    useEffect(() => {
+dispatch(getCurrentPlaylistHandler({playlistid , token}))
+    },[])
 
   return (
     <>

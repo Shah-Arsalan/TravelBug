@@ -13,11 +13,10 @@ import {
   SingleVideo,
   WatchLater,
 } from "./WebPages";
-import { useAuth } from "./Contexts/Authcontext";
+
 import { RequiresAuth } from "./RequiresAuth";
 
 function App() {
-  const { token } = useAuth();
   return (
     <div className="App">
       <Navbar />

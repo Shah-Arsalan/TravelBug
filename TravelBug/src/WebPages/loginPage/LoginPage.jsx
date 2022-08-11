@@ -1,24 +1,39 @@
 import "./Loginpage.css";
 import { useState } from "react";
-import { useAuth } from "../../Contexts/Authcontext";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useData } from "../../Contexts/Datacontext";
+import { useDispatch , useSelector } from "react-redux";
+import { loginHandler } from "../../redux/authenticationSlice";
 
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { loginCall, token, user } = useAuth();
+  const authDispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
   const { dispatch } = useData();
   const [loginDetails, setLoginDetails] = useState({ email: "", password: "" });
 
+  const token = auth.token
+  
+  
+
   const guestLoginHandler = () => {
-    setLoginDetails({
-      email: "adarshbalika@gmail.com",
-      password: "adarshbalika",
-    });
-    loginCall("adarshbalika@gmail.com", "adarshBalika123");
+    // setLoginDetails({
+    //   email: "adarshbalika@gmail.com",
+    //   password: "adarshbalika",
+    // });
+    // loginCall("adarshbalika@gmail.com", "adarshBalika123");
+    authDispatch(loginHandler({email : "adarshbalika@gmail.com" , password :"adarshBalika123"}))
   };
+
+  useEffect(()=> {
+    if(!!token){
+      let from = location?.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
+    }
+
+  },[token])
 
   return (
     <>
@@ -63,7 +78,7 @@ const LoginPage = () => {
               <button
                 className="primary-button"
                 onClick={() =>
-                  loginCall(loginDetails.email, loginDetails.password)
+                  authDispatch(loginHandler({email :loginDetails.email, password : loginDetails.password}))
                 }
               >
                 Log In
@@ -93,3 +108,5 @@ const LoginPage = () => {
 };
 
 export { LoginPage };
+
+/// Immer makes 

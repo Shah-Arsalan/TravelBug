@@ -2,69 +2,65 @@ import "./PlaylistModal.css";
 import axios from "axios";
 import { useState } from "react";
 import { useData } from "../../Contexts/Datacontext";
-import { useAuth } from "../../Contexts/Authcontext";
+import { useSelector , useDispatch } from "react-redux";
+import { addToPlaylistHandler, createPlaylistHandler, removeFromPlaylistHandler } from "../../redux/videoSlice";
 const PlaylistModal = () => {
   const { state, dispatch } = useData();
-  const { token } = useAuth();
+  const videoDispatch = useDispatch()
+  console.log("the state and data is" , state , dispatch)
+  const auth = useSelector(state => state.auth)
+  const videoData = useSelector(state => state.video)
+  const token = auth.token
   const { modal, setModal, activeVideo, setActiveVideo } = useData();
   const [playlistTitle, setTitle] = useState("");
-  const { videos } = state;
+  const { videos , playlist } = videoData;
   const video = videos?.find((element) => element._id === activeVideo) || {};
 
   const createPlaylist = async () => {
-    try {
-      const res = await axios.post(
-        "/api/user/playlists",
-        { playlist: { title: playlistTitle, description: "bar bar bar" } },
-        { headers: { authorization: token } }
-      );
-      if (res.status === 200 || res.status === 201) {
-        dispatch({
-          type: "PLAYLIST",
-          payload: { playlists: res.data.playlists },
-        });
-      }
-    } catch (error) {
-      console.log("The error is : ", error);
-    }
+
+    videoDispatch(createPlaylistHandler({token , playlistTitle}))
   };
 
   const playlistHandler = async (e, elem) => {
-    const currentPlaylist = state.playlist.filter((ele) => ele != elem);
+    const currentPlaylist = playlist.filter((ele) => ele != elem);
 
     if (e.target.checked) {
-      try {
-        const res = await axios.post(
-          `/api/user/playlists/${elem._id}`,
-          { video },
-          { headers: { authorization: token } }
-        );
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "PLAYLIST",
-            payload: { playlist: res.data.playlist },
-          });
-        }
-      } catch (error) {
-        console.log("The error is : ", error);
-      }
+      // try {
+      //   const res = await axios.post(
+      //     `/api/user/playlists/${elem._id}`,
+      //     { video },
+      //     { headers: { authorization: token } }
+      //   );
+      //   if (res.status === 200 || res.status === 201) {
+      //     dispatch({
+      //       type: "PLAYLIST",
+      //       payload: { playlist: res.data.playlist },
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log("The error is : ", error);
+      // }
+      videoDispatch(addToPlaylistHandler({elem , video , token}))
     } else {
-      console.log("un-checked");
-      try {
-        const res = await axios.delete(
-          `/api/user/playlists/${elem._id}/${activeVideo}`,
-          { headers: { authorization: token } }
-        );
-        console.log("del response", res.data.playlist);
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "PLAYLIST",
-            payload: { playlist: res.data.playlist },
-          });
-        }
-      } catch (error) {
-        console.log("The error is : ", error);
-      }
+      // console.log("un-checked");
+      // try {
+      //   const res = await axios.delete(
+      //     `/api/user/playlists/${elem._id}/${activeVideo}`,
+      //     { headers: { authorization: token } }
+      //   );
+      //   console.log("del response", res.data.playlist);
+      //   if (res.status === 200 || res.status === 201) {
+      //     dispatch({
+      //       type: "PLAYLIST",
+      //       payload: { playlist: res.data.playlist },
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log("The error is : ", error);
+      // }
+      const pId = elem?._id
+      const _id = activeVideo
+      videoDispatch(removeFromPlaylistHandler({pId , _id , token }))
     }
   };
 
@@ -78,7 +74,7 @@ const PlaylistModal = () => {
           </div>
 
           <div className="playlists">
-            {state.playlist?.map((elem) => {
+            {playlist?.map((elem) => {
               const inPlaylist = elem.videos?.some(
                 (elem) => elem._id === activeVideo
               );

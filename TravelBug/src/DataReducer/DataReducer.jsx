@@ -1,61 +1,69 @@
-const initialState = {
-  videos: [],
-  liked: [],
-  history: [],
-  watchlater: [],
-  playlist: [],
-};
+// ****************************** Redundant file , to be removed later ***************************************//
+// ****************************** Redundant file , to be removed later ***************************************//
+// ****************************** Redundant file , to be removed later ***************************************//
+// ****************************** Redundant file , to be removed later ***************************************//
+// ****************************** Redundant file , to be removed later ***************************************//
 
-const DataReducer = (state, action) => {
-  switch (action.type) {
-    case "INITIAL_DATA_FETCH": {
-      return {
-        ...state,
-        videos: [...action.payload.videos],
-      };
-    }
 
-    case "LIKE": {
-      return {
-        ...state,
-        liked: [...action.payload.likes],
-      };
-    }
 
-    case "HISTORY": {
-      return {
-        ...state,
-        history: [...action.payload.history],
-      };
-    }
+// const initialState = {
+//   videos: [],
+//   liked: [],
+//   history: [],
+//   watchlater: [],
+//   playlist: [],
+// };
 
-    case "WATCHLATER": {
-      return {
-        ...state,
-        watchlater: [...action.payload.watchlater],
-      };
-    }
+// const DataReducer = (state, action) => {
+//   switch (action.type) {
+//     case "INITIAL_DATA_FETCH": {
+//       return {
+//         ...state,
+//         videos: [...action.payload.videos],
+//       };
+//     }
 
-    case "PLAYLIST": {
-      if (action.payload.playlists) {
-        return {
-          ...state,
-          playlist: [...action.payload.playlists],
-        };
-      } else {
-        const currentPlaylist = state.playlist.filter(
-          (ele) => ele._id === action.payload.playlist._id
-        );
+//     case "LIKE": {
+//       return {
+//         ...state,
+//         liked: [...action.payload.likes],
+//       };
+//     }
 
-        currentPlaylist[0].videos = [...action.payload.playlist.videos];
+//     case "HISTORY": {
+//       return {
+//         ...state,
+//         history: [...action.payload.history],
+//       };
+//     }
 
-        return {
-          ...state,
-          playlist: [...state.playlist],
-        };
-      }
-    }
-  }
-};
+//     case "WATCHLATER": {
+//       return {
+//         ...state,
+//         watchlater: [...action.payload.watchlater],
+//       };
+//     }
 
-export { DataReducer, initialState };
+//     case "PLAYLIST": {
+//       if (action.payload.playlists) {
+//         return {
+//           ...state,
+//           playlist: [...action.payload.playlists],
+//         };
+//       } else {
+//         const currentPlaylist = state.playlist.filter(
+//           (ele) => ele._id === action.payload.playlist._id
+//         );
+
+//         currentPlaylist[0].videos = [...action.payload.playlist.videos];
+
+//         return {
+//           ...state,
+//           playlist: [...state.playlist],
+//         };
+//       }
+//     }
+//   }
+// };
+
+// export { DataReducer, initialState };

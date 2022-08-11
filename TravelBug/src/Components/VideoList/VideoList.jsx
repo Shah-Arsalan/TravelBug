@@ -1,11 +1,12 @@
+import { useSelector } from "react-redux";
 import { useData } from "../../Contexts/Datacontext";
 import { VideoCard } from "../VideoCard/VideoCard";
 import "./VideoList.css";
 
 const VideoList = () => {
-  const { state } = useData();
-  const { videos } = state;
-  // console.log("videos in videolist", videos);
+  const video = useSelector(state => state.video)
+  const videos = video.videos
+
 
   return (
     <>
