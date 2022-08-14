@@ -1,18 +1,22 @@
 import "./VideoCard.css";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../Contexts/Authcontext";
+import { useSelector , useDispatch } from "react-redux";
 import { useData } from "../../Contexts/Datacontext";
 import { useState } from "react";
 import { PlaylistModal } from "../PlaylistModal/PlaylistModal";
+import { addHistoryHandler, addLikeHandler, addWatchLaterHandler, deletePlaylistHandler } from "../../redux/videoSlice";
 
 const VideoCard = ({ vid, playlistId }) => {
-  const location = useLocation;
-  const { token } = useAuth();
+  const location = useLocation();
+  const videoDispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
+  const token = auth.token
+  const videoData = useSelector(state => state.video)
+  const {videos , playlist} = videoData
   const { state, dispatch, setModal, modal, activeVideo, setActiveVideo } =
     useData();
 
-  const { videos } = state;
   const navigate = useNavigate();
 
   const { title, category, img, creator, _id } = vid;
@@ -25,46 +29,21 @@ const VideoCard = ({ vid, playlistId }) => {
 
   let currentPlaylist = "";
   if (playlistId) {
-    currentPlaylist = state.playlist.filter((ele) => ele._id === playlistId);
+    currentPlaylist = playlist.filter((ele) => ele._id === playlistId);
   }
 
   const addToHistory = async () => {
-    try {
-      const res = await axios.post(
-        "/api/user/history",
-        { video },
-        { headers: { authorization: token } }
-      );
 
-      if (res.status === 200 || res.status === 201) {
-        dispatch({
-          type: "HISTORY",
-          payload: { history: res.data.history },
-        });
-      }
-    } catch (error) {
-      console.log("The error is : ", error);
-    }
+    videoDispatch(addHistoryHandler({video , token}))
   };
 
   const watchLater = async () => {
     try {
       if (!token) {
         navigate("/login", { state: { from: location } });
-        return;
       } else {
-        const res = await axios.post(
-          "/api/user/watchlater",
-          { video },
-          { headers: { authorization: token } }
-        );
 
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "WATCHLATER",
-            payload: { watchlater: res.data.watchlater },
-          });
-        }
+        videoDispatch(addWatchLaterHandler({video , token}))
       }
     } catch (error) {
       console.log("The error is : ", error);
@@ -74,7 +53,6 @@ const VideoCard = ({ vid, playlistId }) => {
   const showModal = () => {
     if (!token) {
       navigate("/login", { state: { from: location } });
-      return;
     } else {
       setAppear(false);
       setModal(true);
@@ -85,22 +63,9 @@ const VideoCard = ({ vid, playlistId }) => {
     navigate(`/singleplaylist/${pId}`);
   };
 
-  const deletePlaylist = async () => {
-    console.log("pididid", playlistId);
-    try {
-      const res = await axios.delete(`/api/user/playlists/${playlistId}`, {
-        headers: { authorization: token },
-      });
-      console.log("playlist array", res);
-      if (res.status === 200 || res.status === 201) {
-        dispatch({
-          type: "PLAYLIST",
-          payload: { playlists: res.data.playlists },
-        });
-      }
-    } catch (error) {
-      console.log("The error is : ", error);
-    }
+  const deletePlaylist =  () => {
+
+    videoDispatch(deletePlaylistHandler({playlistId,token}))
   };
   return (
     <>

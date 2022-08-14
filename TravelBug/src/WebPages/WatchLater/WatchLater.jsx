@@ -1,11 +1,20 @@
 import { Sidebar, VerticalCard } from "../../Components";
+import { useSelector , useDispatch} from "react-redux";
 import { useData } from "../../Contexts/Datacontext";
 import "./WatchLater.css";
+import { getWatchLaterHandler } from "../../redux/videoSlice";
+import { useEffect } from "react";
 
 const WatchLater = () => {
-  const { state } = useData();
-  const { watchlater } = state;
-  const watchlaterLen = watchlater.length;
+  const dispatch = useDispatch()
+  const {token} = useSelector(state => state.auth)
+  const videos = useSelector(state => state.video)
+  const watchlater = videos?.watchlater
+  const watchlaterLen = watchlater?.length;
+
+  useEffect(() => {
+    dispatch(getWatchLaterHandler(token))
+    },[])
 
   return (
     <>

@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { useAuth } from "../../Contexts/Authcontext";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authenticationSlice";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const { logoutHandler, token } = useAuth();
+  const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
+  const token = auth.token
   const [appearModal, setAppearModal] = useState(false);
 
   return (
@@ -24,7 +28,7 @@ const Navbar = () => {
         {appearModal && (
           <div
             onClick={() => {
-              logoutHandler();
+              dispatch(logout())
               setAppearModal((prev) => !prev);
             }}
             className="card-modal-main user-modal-container"

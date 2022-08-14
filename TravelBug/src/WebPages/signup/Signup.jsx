@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useAuth } from "../../Contexts/Authcontext";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
+import { useDispatch, useSelector } from "react-redux";
+import { signupHandler } from "../../redux/authenticationSlice";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { signupHandler, token } = useAuth();
+  const dispatch = useDispatch()
+  const auth = useSelector(state => state.auth)
+  const token = auth.token
+
   const [signUpDetails, setSignUpDetails] = useState({
     email: "",
     password: "",
@@ -33,12 +37,12 @@ const Signup = () => {
               className="form"
               onSubmit={(e) => {
                 e.preventDefault();
-                signupHandler(
-                  signUpDetails.email,
-                  signUpDetails.password,
-                  signUpDetails.firstname,
-                  signUpDetails.lastname
-                );
+                dispatch(signupHandler(
+                { email : signUpDetails.email,
+                 password: signUpDetails.password,
+                 firstname : signUpDetails.firstname,
+                 lastname : signUpDetails.lastname}
+                ));
               }}
             >
               <div className="input">

@@ -2,12 +2,14 @@ import axios from "axios";
 import "./VerticalCard.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../Contexts/Authcontext";
-import { useData } from "../../Contexts/Datacontext";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteLikeHandler , deleteHistoryHandler, addHistoryHandler, deleteWatchLaterHandler, removeFromPlaylistHandler} from "../../redux/videoSlice";
 const VerticalCard = ({ vid, text, pId }) => {
-  const { token } = useAuth();
-  const { state, dispatch, activeVideo } = useData();
-  const { videos } = state;
+  const auth = useSelector(state => state.auth)
+  const videoData = useSelector(state => state.video)
+  const token = auth.token
+  const vidDispatch = useDispatch()
+  const { videos } = videoData;
   const navigate = useNavigate();
   const [appear, setAppear] = useState(false);
   const { title, category, img, creator, _id } = vid;
@@ -30,93 +32,99 @@ const VerticalCard = ({ vid, text, pId }) => {
 
   const deleteHandler = async (text) => {
     if (text === "liked") {
-      try {
-        const res = await axios.delete(`/api/user/likes/${_id}`, {
-          headers: {
-            authorization: token,
-          },
-        });
+      // try {
+      //   const res = await axios.delete(`/api/user/likes/${_id}`, {
+      //     headers: {
+      //       authorization: token,
+      //     },
+      //   });
 
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "LIKE",
-            payload: { likes: res.data.likes },
-          });
-        }
-      } catch (error) {
-        console.log("The error is : ", error);
-      }
+      //   if (res.status === 200 || res.status === 201) {
+      //     dispatch({
+      //       type: "LIKE",
+      //       payload: { likes: res.data.likes },
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log("The error is : ", error);
+      // }
+      vidDispatch(deleteLikeHandler({token , _id}))
     } else if (text === "history") {
-      try {
-        const res = await axios.delete(`/api/user/history/${_id}`, {
-          headers: {
-            authorization: token,
-          },
-        });
+      // try {
+      //   const res = await axios.delete(`/api/user/history/${_id}`, {
+      //     headers: {
+      //       authorization: token,
+      //     },
+      //   });
 
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "HISTORY",
-            payload: { history: res.data.history },
-          });
-        }
-      } catch (error) {
-        console.log("The error is : ", error);
-      }
+      //   if (res.status === 200 || res.status === 201) {
+      //     dispatch({
+      //       type: "HISTORY",
+      //       payload: { history: res.data.history },
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log("The error is : ", error);
+      // }
+      vidDispatch(deleteHistoryHandler({token , _id}))
     } else if (text === "watchlater") {
-      try {
-        const res = await axios.delete(`/api/user/watchlater/${_id}`, {
-          headers: {
-            authorization: token,
-          },
-        });
+      // try {
+      //   const res = await axios.delete(`/api/user/watchlater/${_id}`, {
+      //     headers: {
+      //       authorization: token,
+      //     },
+      //   });
 
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "WATCHLATER",
-            payload: { watchlater: res.data.watchlater },
-          });
-        }
-      } catch (error) {
-        console.log("The error is : ", error);
-      }
+      //   if (res.status === 200 || res.status === 201) {
+      //     dispatch({
+      //       type: "WATCHLATER",
+      //       payload: { watchlater: res.data.watchlater },
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log("The error is : ", error);
+      // }
+      vidDispatch(deleteWatchLaterHandler({token , _id}))
+
     } else if (text === "singleplaylist") {
-      try {
-        const res = await axios.delete(`/api/user/playlists/${pId}/${_id}`, {
-          headers: {
-            authorization: token,
-          },
-        });
+      // try {
+      //   const res = await axios.delete(`/api/user/playlists/${pId}/${_id}`, {
+      //     headers: {
+      //       authorization: token,
+      //     },
+      //   });
 
-        if (res.status === 200 || res.status === 201) {
-          dispatch({
-            type: "PLAYLIST",
-            payload: { playlist: res.data.playlist },
-          });
-        }
-      } catch (error) {
-        console.log("The error is : ", error);
-      }
+      //   if (res.status === 200 || res.status === 201) {
+      //     dispatch({
+      //       type: "PLAYLIST",
+      //       payload: { playlist: res.data.playlist },
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log("The error is : ", error);
+      // }
+      vidDispatch(removeFromPlaylistHandler({pId , _id , token}))
     }
   };
 
-  const addToHistory = async () => {
-    try {
-      const res = await axios.post(
-        "/api/user/history",
-        { video },
-        { headers: { authorization: token } }
-      );
+  const addToHistory = () => {
+    // try {
+    //   const res = await axios.post(
+    //     "/api/user/history",
+    //     { video },
+    //     { headers: { authorization: token } }
+    //   );
 
-      if (res.status === 200 || res.status === 201) {
-        dispatch({
-          type: "HISTORY",
-          payload: { history: res.data.history },
-        });
-      }
-    } catch (error) {
-      console.log("The error is : ", error);
-    }
+    //   if (res.status === 200 || res.status === 201) {
+    //     dispatch({
+    //       type: "HISTORY",
+    //       payload: { history: res.data.history },
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.log("The error is : ", error);
+    // }
+    vidDispatch(addHistoryHandler({video,token}))
   };
 
   return (

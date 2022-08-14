@@ -1,11 +1,22 @@
+import { useSelector  , useDispatch} from "react-redux";
 import { Sidebar, VerticalCard, VideoCard } from "../../Components";
 import { useData } from "../../Contexts/Datacontext";
 import "./Liked.css";
+import { getLikesHandler } from "../../redux/videoSlice";
+import { useDeferredValue, useEffect } from "react";
 
 const Liked = () => {
-  const { state } = useData();
-  const { liked } = state;
-  const likedLen = liked.length;
+  const dispatch = useDispatch()
+  const {token}= useSelector(state => state.auth)
+  const videos = useSelector(state => state.video)
+  console.log(videos)
+  const liked = videos?.liked
+  console.log("liked videos are",liked)
+  const likedLen = liked?.length;
+
+  useEffect(() => {
+    dispatch(getLikesHandler(token))
+    },[])
   return (
     <>
       {likedLen ? (
