@@ -29,33 +29,9 @@ const SingleVideo = () => {
         return;
       } else {
         if (isLiked()) {
-          // const res = await axios.delete(`/api/user/likes/${video?._id}`, {
-          //   headers: {
-          //     authorization: token,
-          //   },
-          // });
-
-          // if (res.status === 200 || res.status === 201) {
-          //   dispatch({
-          //     type: "LIKE",
-          //     payload: { likes: res.data.likes },
-          //   });
-          // }
           const _id = video?._id
           dataDispatch(deleteLikeHandler({token , _id}))
         } else {
-          // const res = await axios.post(
-          //   "/api/user/likes",
-          //   { video },
-          //   { headers: { authorization: token } }
-          // );
-
-          // if (res.status === 200 || res.status === 201) {
-          //   dispatch({
-          //     type: "LIKE",
-          //     payload: { likes: res.data.likes },
-          //   });
-          // }
 dataDispatch(addLikeHandler({video , token}))
         }
       }
@@ -71,33 +47,9 @@ dataDispatch(addLikeHandler({video , token}))
         return;
       } else {
         if (inWatchLater()) {
-          // const res = await axios.delete(`/api/user/watchlater/${video?._id}`, {
-          //   headers: {
-          //     authorization: token,
-          //   },
-          // });
-
-          // if (res.status === 200 || res.status === 201) {
-          //   dispatch({
-          //     type: "WATCHLATER",
-          //     payload: { watchlater: res.data.watchlater },
-          //   });
-          // }
           const _id = video?._id
           dataDispatch(deleteWatchLaterHandler({token , _id}))
         } else {
-//           const res = await axios.post(
-//             "/api/user/watchlater",
-//             { video },
-//             { headers: { authorization: token } }
-//           );
-// console.log("The watch later resp" ,  res.data)
-//           if (res.status === 200 || res.status === 201) {
-//             dispatch({
-//               type: "WATCHLATER",
-//               payload: { watchlater: res.data.watchlater },
-//             });
-//           }
 dataDispatch(addWatchLaterHandler({video , token}))
         }
       }

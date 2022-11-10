@@ -19,11 +19,6 @@ const LoginPage = () => {
   
 
   const guestLoginHandler = () => {
-    // setLoginDetails({
-    //   email: "adarshbalika@gmail.com",
-    //   password: "adarshbalika",
-    // });
-    // loginCall("adarshbalika@gmail.com", "adarshBalika123");
     authDispatch(loginHandler({email : "adarshbalika@gmail.com" , password :"adarshBalika123"}))
   };
 

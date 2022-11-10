@@ -8,7 +8,6 @@ const Playlist = () => {
   const dispatch = useDispatch()
   const {token} = useSelector(state => state.auth)
   const videos = useSelector(state => state.video)
-  console.log(videos, "inside playlist")
   const playlist = videos.playlist
   const playlistLen = playlist.length;
 

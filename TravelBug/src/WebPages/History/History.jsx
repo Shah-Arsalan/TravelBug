@@ -3,7 +3,7 @@ import { useData } from "../../Contexts/Datacontext";
 import "./History.css";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getHistoryHandler } from "../../redux/videoSlice";
+import { deleteAllHistoryHandler, getHistoryHandler } from "../../redux/videoSlice";
 
 const History = () => {
   const dispatch = useDispatch()
@@ -24,6 +24,7 @@ dispatch(getHistoryHandler(token))
             <Sidebar />
           </div>
           <div className="liked-vid-container">
+          <button onClick={() => dispatch(deleteAllHistoryHandler(token))} className="clr-btn">Clear History</button>
             {history.map((ele) => {
               return <VerticalCard key={ele._id} vid={ele} text={"history"} />;
             })}

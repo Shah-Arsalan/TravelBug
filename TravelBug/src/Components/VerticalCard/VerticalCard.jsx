@@ -32,98 +32,21 @@ const VerticalCard = ({ vid, text, pId }) => {
 
   const deleteHandler = async (text) => {
     if (text === "liked") {
-      // try {
-      //   const res = await axios.delete(`/api/user/likes/${_id}`, {
-      //     headers: {
-      //       authorization: token,
-      //     },
-      //   });
-
-      //   if (res.status === 200 || res.status === 201) {
-      //     dispatch({
-      //       type: "LIKE",
-      //       payload: { likes: res.data.likes },
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log("The error is : ", error);
-      // }
       vidDispatch(deleteLikeHandler({token , _id}))
     } else if (text === "history") {
-      // try {
-      //   const res = await axios.delete(`/api/user/history/${_id}`, {
-      //     headers: {
-      //       authorization: token,
-      //     },
-      //   });
-
-      //   if (res.status === 200 || res.status === 201) {
-      //     dispatch({
-      //       type: "HISTORY",
-      //       payload: { history: res.data.history },
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log("The error is : ", error);
-      // }
       vidDispatch(deleteHistoryHandler({token , _id}))
     } else if (text === "watchlater") {
-      // try {
-      //   const res = await axios.delete(`/api/user/watchlater/${_id}`, {
-      //     headers: {
-      //       authorization: token,
-      //     },
-      //   });
 
-      //   if (res.status === 200 || res.status === 201) {
-      //     dispatch({
-      //       type: "WATCHLATER",
-      //       payload: { watchlater: res.data.watchlater },
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log("The error is : ", error);
-      // }
       vidDispatch(deleteWatchLaterHandler({token , _id}))
 
     } else if (text === "singleplaylist") {
-      // try {
-      //   const res = await axios.delete(`/api/user/playlists/${pId}/${_id}`, {
-      //     headers: {
-      //       authorization: token,
-      //     },
-      //   });
 
-      //   if (res.status === 200 || res.status === 201) {
-      //     dispatch({
-      //       type: "PLAYLIST",
-      //       payload: { playlist: res.data.playlist },
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log("The error is : ", error);
-      // }
       vidDispatch(removeFromPlaylistHandler({pId , _id , token}))
     }
   };
 
   const addToHistory = () => {
-    // try {
-    //   const res = await axios.post(
-    //     "/api/user/history",
-    //     { video },
-    //     { headers: { authorization: token } }
-    //   );
 
-    //   if (res.status === 200 || res.status === 201) {
-    //     dispatch({
-    //       type: "HISTORY",
-    //       payload: { history: res.data.history },
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.log("The error is : ", error);
-    // }
     vidDispatch(addHistoryHandler({video,token}))
   };
 

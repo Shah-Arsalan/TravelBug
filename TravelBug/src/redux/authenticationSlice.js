@@ -17,14 +17,12 @@ const initialState = {
 
 const loginHandler = createAsyncThunk("auth/login" , async ({email,password}) => {
 
-    console.log("calling" , email,password)
     try {
         const response = await axios.post("/api/auth/login", {
           email,
           password,
         });
   
-console.log("the resp is" , response)
        return {data :response.data}
       
         
@@ -35,7 +33,6 @@ console.log("the resp is" , response)
 
 const signupHandler = createAsyncThunk("auth/signup" , async ({email,password,firstname,lastname}) => {
 
-  console.log("calling" , email,password)
   try {
       const response = await axios.post("/api/auth/signup", {
         email,
@@ -44,7 +41,6 @@ const signupHandler = createAsyncThunk("auth/signup" , async ({email,password,fi
         lastname
       });
 
-console.log("the resp of user is" , response.data.createdUser)
      return {data :response.data}
     
       
@@ -54,32 +50,7 @@ console.log("the resp of user is" , response.data.createdUser)
 })
 
 
-// const signupHandler = async (email, password, firstname, lastname) => {
-//   try {
-//     const response = await axios.post("/api/auth/signup", {
-//       email,
-//       password,
-//       firstname,
-//       lastname,
-//     });
 
-//     if (response.status === 200 || response.status === 201) {
-//       localStorage.setItem(
-//         "LoginCredentials",
-//         JSON.stringify({
-//           userToken: response.data.encodedToken,
-//           activeUser: response.data.foundUser,
-//         })
-//       );
-
-//       setUser(response.data.createdUser);
-
-//       setToken(response.data.encodedToken);
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 
 const authenticationSlice = createSlice({
@@ -123,7 +94,6 @@ const authenticationSlice = createSlice({
 
 
       [signupHandler.pending] : (action )=> {
-        console.log("the action is" , action)
     },
       [signupHandler.fulfilled] : (state,action) => {
       // const navigate = action.payload.navigate

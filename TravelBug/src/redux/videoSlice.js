@@ -14,7 +14,6 @@ const initialDataFetch = createAsyncThunk("data/initialFetch", async () => {
   try {
     const response = await axios.get("/api/videos");
 
-    console.log("the resp is", response);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -22,14 +21,12 @@ const initialDataFetch = createAsyncThunk("data/initialFetch", async () => {
 });
 
 const getLikesHandler = createAsyncThunk("data/getLikes", async (token) => {
-  console.log("the video and token is", token);
   try {
     const response = await axios.get("/api/user/likes", {
       headers: {
         authorization: token,
       },
     });
-    console.log("like response is", response);
     return response.data.likes;
   } catch (error) {
     console.error(error);
@@ -39,7 +36,6 @@ const getLikesHandler = createAsyncThunk("data/getLikes", async (token) => {
 const addLikeHandler = createAsyncThunk(
   "data/addlike",
   async ({ video, token }) => {
-    console.log("the video and token is", video, token);
     try {
       const response = await axios.post(
         `/api/user/likes/`,
@@ -50,7 +46,6 @@ const addLikeHandler = createAsyncThunk(
           },
         }
       );
-      console.log("like response is", response.data.likes);
       return response.data.likes;
     } catch (error) {
       console.error(error);
@@ -61,14 +56,14 @@ const addLikeHandler = createAsyncThunk(
 const deleteLikeHandler = createAsyncThunk(
   "data/removelike",
   async ({ token, _id }) => {
-    console.log("the video and token is", _id);
+  
     try {
       const response = await axios.delete(`/api/user/likes/${_id}`, {
         headers: {
           authorization: token,
         },
       });
-      console.log("like response is", response);
+      
       return response.data.likes;
     } catch (error) {
       console.error(error);
@@ -77,14 +72,14 @@ const deleteLikeHandler = createAsyncThunk(
 );
 
 const getHistoryHandler = createAsyncThunk("data/getHistory", async (token) => {
-  console.log("the video and token is", token);
+  
   try {
     const response = await axios.get("/api/user/history", {
       headers: {
         authorization: token,
       },
     });
-    console.log("history response is", response);
+    
     return response.data.history;
   } catch (error) {
     console.error(error);
@@ -94,7 +89,7 @@ const getHistoryHandler = createAsyncThunk("data/getHistory", async (token) => {
 const addHistoryHandler = createAsyncThunk(
   "data/addHistory",
   async ({ video, token }) => {
-    console.log("the video and token is", video, token);
+    
     try {
       const response = await axios.post(
         "/api/user/history",
@@ -105,7 +100,7 @@ const addHistoryHandler = createAsyncThunk(
           },
         }
       );
-      console.log("history response is", response);
+      
       return response.data.history;
     } catch (error) {
       console.error(error);
@@ -116,14 +111,31 @@ const addHistoryHandler = createAsyncThunk(
 const deleteHistoryHandler = createAsyncThunk(
   "data/deletehistory",
   async ({ token, _id }) => {
-    console.log("the video and token is", _id);
+    
     try {
       const response = await axios.delete(`/api/user/history/${_id}`, {
         headers: {
           authorization: token,
         },
       });
-      console.log("like response is", response);
+      
+      return response.data.history;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+);
+
+const deleteAllHistoryHandler = createAsyncThunk(
+  "data/deleteAllhistory",
+  async (token) => {
+    try {
+      const response = await axios.delete(`/api/user/history/all`, {
+        headers: {
+          authorization: token,
+        },
+      });
+     
       return response.data.history;
     } catch (error) {
       console.error(error);
@@ -134,14 +146,14 @@ const deleteHistoryHandler = createAsyncThunk(
 const getWatchLaterHandler = createAsyncThunk(
   "data/getWatchlater",
   async (token) => {
-    console.log("the video and token is", token);
+   
     try {
       const response = await axios.get("/api/user/watchlater", {
         headers: {
           authorization: token,
         },
       });
-      console.log("watchlater response is", response);
+     
       return response.data.watchlater;
     } catch (error) {
       console.error(error);
@@ -152,7 +164,7 @@ const getWatchLaterHandler = createAsyncThunk(
 const addWatchLaterHandler = createAsyncThunk(
   "data/addWatchLater",
   async ({ video, token }) => {
-    console.log("the video and token is", video, token);
+   
     try {
       const response = await axios.post(
         "/api/user/watchlater",
@@ -163,7 +175,7 @@ const addWatchLaterHandler = createAsyncThunk(
           },
         }
       );
-      console.log("watchlater response is", response);
+    
       return response.data.watchlater;
     } catch (error) {
       console.error(error);
@@ -174,14 +186,14 @@ const addWatchLaterHandler = createAsyncThunk(
 const deleteWatchLaterHandler = createAsyncThunk(
   "data/deleteWatchLater",
   async ({ token, _id }) => {
-    console.log("the video and token is", _id);
+   
     try {
       const response = await axios.delete(`/api/user/watchlater/${_id}`, {
         headers: {
           authorization: token,
         },
       });
-      console.log("watchlater response is", response);
+      
       return response.data.watchlater;
     } catch (error) {
       console.error(error);
@@ -192,14 +204,14 @@ const deleteWatchLaterHandler = createAsyncThunk(
 const getPlaylistHandler = createAsyncThunk(
   "data/getPlaylists",
   async (token) => {
-    console.log("the video and token is", token);
+    
     try {
       const response = await axios.get("/api/user/playlists", {
         headers: {
           authorization: token,
         },
       });
-      console.log("playlists response is", response);
+      
       return { playlists: response.data.playlists };
     } catch (error) {
       console.error(error);
@@ -210,14 +222,14 @@ const getPlaylistHandler = createAsyncThunk(
 const createPlaylistHandler = createAsyncThunk(
   "data/createPlaylist",
   async ({ token, playlistTitle }) => {
-    console.log("the video and token is", token);
+    
     try {
       const response = await axios.post(
         "/api/user/playlists",
         { playlist: { title: playlistTitle, description: "bar bar bar" } },
         { headers: { authorization: token } }
       );
-      console.log("like response is", response.data.playlists);
+      
       return { playlists: response.data.playlists };
     } catch (error) {
       console.error(error);
@@ -228,14 +240,14 @@ const createPlaylistHandler = createAsyncThunk(
 const deletePlaylistHandler = createAsyncThunk(
   "data/deletePlaylist",
   async ({ playlistId, token }) => {
-    console.log("the video and token is");
+    
     try {
       const response = await axios.delete(`/api/user/playlists/${playlistId}`, {
         headers: {
           authorization: token,
         },
       });
-      console.log("playlist response is", response);
+     
       return { playlists: response.data.playlists };
     } catch (error) {
       console.error(error);
@@ -246,14 +258,14 @@ const deletePlaylistHandler = createAsyncThunk(
 const getCurrentPlaylistHandler = createAsyncThunk(
   "data/getCurrentPlaylist",
   async ({ playlistid, token }) => {
-    console.log("the video and token is", token);
+    
     try {
       const response = await axios.get(`/api/user/playlists/${playlistid}`, {
         headers: {
           authorization: token,
         },
       });
-      console.log("playlists response is", response);
+      
       return { playlist: response.data.playlist };
     } catch (error) {
       console.error(error);
@@ -264,14 +276,14 @@ const getCurrentPlaylistHandler = createAsyncThunk(
 const addToPlaylistHandler = createAsyncThunk(
   "data/addToPlaylist",
   async ({ elem, video, token }) => {
-    console.log("the video and token is", token);
+    
     try {
       const response = await axios.post(
         `/api/user/playlists/${elem._id}`,
         { video },
         { headers: { authorization: token } }
       );
-      console.log("add to playlist resp  response is", response.data.playlist);
+      
       return { playlist: response.data.playlist };
     } catch (error) {
       console.error(error);
@@ -282,12 +294,12 @@ const addToPlaylistHandler = createAsyncThunk(
 const removeFromPlaylistHandler = createAsyncThunk(
   "data/removeFromPlaylist",
   async ({ pId, _id, token }) => {
-    console.log("the video and token is");
+    
     try {
       const response = await axios.delete(`/api/user/playlists/${pId}/${_id}`, {
         headers: { authorization: token },
       });
-      console.log("playlist response is", response);
+      
       return { playlist: response.data.playlist };
     } catch (error) {
       console.error(error);
@@ -392,6 +404,20 @@ const videoSlice = createSlice({
     },
 
     [deleteHistoryHandler.rejected]: (action) => {
+      console.error(action.payload);
+    },
+
+    // for removing all history
+
+    [deleteAllHistoryHandler.pending]: (action) => {
+      console.log("the action is", action);
+    },
+    [deleteAllHistoryHandler.fulfilled]: (state, action) => {
+      console.log("history is", action.payload);
+      state.history = action.payload;
+    },
+
+    [deleteAllHistoryHandler.rejected]: (action) => {
       console.error(action.payload);
     },
 
@@ -538,6 +564,7 @@ export {
   deleteLikeHandler,
   addHistoryHandler,
   deleteHistoryHandler,
+  deleteAllHistoryHandler,
   addWatchLaterHandler,
   deleteWatchLaterHandler,
   createPlaylistHandler,

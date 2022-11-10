@@ -4,3 +4,18 @@
   font-size: 2rem;
   color: var(--vr-card-bg);
 }
+
+.clr-btn{
+  width: max-content;
+  padding: .5rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+
+.clr-btn:hover{
+  color: var(--primary-color);
+  background-color: var(--white);
+}

@@ -15,3 +15,39 @@ form {
 .user-link {
   padding-right: 2rem;
 }
+
+
+.cross{
+  cursor: pointer;
+}
+
+.error-msg{
+  background-color: var(--white);
+  width: max-content;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  position: absolute;
+  top: 42rem;
+  left: 33rem;
+  border: 1px solid red;
+}
+
+.input-icon{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fa-eye{
+  border: 1px solid var(--black);
+  padding: 7px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.fa-eye:hover{
+ color: var(--white);
+}

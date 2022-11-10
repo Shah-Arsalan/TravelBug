@@ -7,7 +7,6 @@ import { addToPlaylistHandler, createPlaylistHandler, removeFromPlaylistHandler 
 const PlaylistModal = () => {
   const { state, dispatch } = useData();
   const videoDispatch = useDispatch()
-  console.log("the state and data is" , state , dispatch)
   const auth = useSelector(state => state.auth)
   const videoData = useSelector(state => state.video)
   const token = auth.token
@@ -25,39 +24,8 @@ const PlaylistModal = () => {
     const currentPlaylist = playlist.filter((ele) => ele != elem);
 
     if (e.target.checked) {
-      // try {
-      //   const res = await axios.post(
-      //     `/api/user/playlists/${elem._id}`,
-      //     { video },
-      //     { headers: { authorization: token } }
-      //   );
-      //   if (res.status === 200 || res.status === 201) {
-      //     dispatch({
-      //       type: "PLAYLIST",
-      //       payload: { playlist: res.data.playlist },
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log("The error is : ", error);
-      // }
       videoDispatch(addToPlaylistHandler({elem , video , token}))
     } else {
-      // console.log("un-checked");
-      // try {
-      //   const res = await axios.delete(
-      //     `/api/user/playlists/${elem._id}/${activeVideo}`,
-      //     { headers: { authorization: token } }
-      //   );
-      //   console.log("del response", res.data.playlist);
-      //   if (res.status === 200 || res.status === 201) {
-      //     dispatch({
-      //       type: "PLAYLIST",
-      //       payload: { playlist: res.data.playlist },
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log("The error is : ", error);
-      // }
       const pId = elem?._id
       const _id = activeVideo
       videoDispatch(removeFromPlaylistHandler({pId , _id , token }))
